@@ -12,15 +12,32 @@
       <nav id="navbar">
         <header id="main-title">Official FreeBsd Documentation</header>
         <ul class="main-nav">
-            <li>
-            <a href="#installation_freebsd" class="nav-link">installation freebsd</a></li>
-            <li><a href="#getting_started" class="nav-link">getting started</a></li>
-            <li><a href="#basics" class="nav-link">basics</a></li>
-            <li><a href="#disks_organisation" class="nav-link">disks organisation</a></li>
-            <li><a href="#configuring_the_kernel" class="nav-link">configuring the kernel</a></li>
-            <li><a href="#security" class="nav-link">security</a></li>
-            <li><a href="#configuration_and_tuning" class="nav-link">configuration and tuning</a></li>
-            <li><a href="#printing" class="nav-link">printing</a></li>
+          <li>
+            <a href="#installation_freebsd" class="nav-link"
+              >installation freebsd</a
+            >
+          </li>
+          <li>
+            <a href="#getting_started" class="nav-link">getting started</a>
+          </li>
+          <li><a href="#basics" class="nav-link">basics</a></li>
+          <li>
+            <a href="#disks_organisation" class="nav-link"
+              >disks organisation</a
+            >
+          </li>
+          <li>
+            <a href="#configuring_the_kernel" class="nav-link"
+              >configuring the kernel</a
+            >
+          </li>
+          <li><a href="#security" class="nav-link">security</a></li>
+          <li>
+            <a href="#configuration_and_tuning" class="nav-link"
+              >configuration and tuning</a
+            >
+          </li>
+          <li><a href="#printing" class="nav-link">printing</a></li>
         </ul>
       </nav>
     </div>
@@ -97,7 +114,7 @@
             </li>
           </ul>
           <h3>FreeBSD Boot Menu</h3>
-          <img src="./img/bsdinstall-newboot-loader-menu.png" />
+          <img src="https://raw.githubusercontent.com/CallensJ/technical-documentation/main/img/bsdinstall-newboot-loader-menu.png" alt="screen boot freebsd" />
         </div>
       </section>
       <section class="main-section" id="basics">
@@ -207,10 +224,14 @@
           to enhance security.
         </p>
         <p>After reading this chapter, you will know:</p>
-        <ul >
+        <ul>
           <li class="nav-item">Basic FreeBSD system security concepts.</li>
-          <li class="nav-item">The various crypt mechanisms available in FreeBSD.</li>
-          <li class="nav-item">How to set up one-time password authentication.</li>
+          <li class="nav-item">
+            The various crypt mechanisms available in FreeBSD.
+          </li>
+          <li class="nav-item">
+            How to set up one-time password authentication.
+          </li>
           <li class="nav-item">How to set up Kerberos on FreeBSD.</li>
           <li class="nav-item">How to configure IPsec and create a VPN.</li>
           <li class="nav-item">How to configure and use OpenSSH on FreeBSD.</li>
@@ -235,9 +256,46 @@
       </section>
       <section class="main-section" id="configuration_and_tuning">
         <header><h2>configuration and tuning</h2></header>
+        <h3>Starting Services</h3>
+        <p>
+          Many users install third party software on FreeBSD from the Ports
+          Collection and require the installed services to be started upon
+          system initialization. Services, such as mail/postfix or www/apache22
+          are just two of the many software packages which may be started during
+          system initialization. This section explains the procedures available
+          for starting third party software.
+        </p>
+        <code>
+          #!/bin/sh # # PROVIDE: utility # REQUIRE: DAEMON # KEYWORD: shutdown .
+          /etc/rc.subr name=utility rcvar=utility_enable
+          command="/usr/local/sbin/utility" load_rc_config $name # # DO NOT
+          CHANGE THESE DEFAULT VALUES HERE # SET THEM IN THE /etc/rc.conf FILE #
+          utility_enable=${utility_enable-"NO"}
+          pidfile=${utility_pidfile-"/var/run/utility.pid"} run_rc_command "$1"
+        </code>
+        <p>
+          This script will ensure that the provided utility will be started
+          after the DAEMON pseudo-service. It also provides a method for setting
+          and tracking the process ID (PID).
+        </p>
       </section>
       <section class="main-section" id="printing">
         <header><h2>printing</h2></header>
+        <h3>Quick Start</h3>
+        <p>
+          Basic printing can be set up quickly. The printer must be capable of
+          printing plain ASCII text. For printing to other types of files, see
+          Filters.
+        </p>
+        <code>
+          # mkdir -p /var/spool/lpd/lp # chown daemon:daemon /var/spool/lpd/lp #
+          chmod 770 /var/spool/lpd/lp
+        </code>
+        <p>As root, create /etc/printcap with these contents:</p>
+        <code>
+          lp:\ lp=/dev/unlpt0:\ sh:\ mx#0:\ sd=/var/spool/lpd/lp:\
+          lf=/var/log/lpd-errs:
+        </code>
       </section>
     </main>
   </body>
