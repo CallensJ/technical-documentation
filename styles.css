@@ -51,73 +51,109 @@ h1 {
   font-weight: 900;
 }
 
-
-
-
-@media only screen and (max-width: 600px) {
-  body {
-    
-  }
-}
-
-
-body{
-  display: flex;
-  justify-content: space-around;
+body {
   background-color: var(--primary-background-color);
-  color:var(--primary-text-color);
-  
+  color: var(--primary-text-color);
 }
 /*============== NAVBAR  =================================*/
 
-
-#navbar{
-  border: 1px solid red;
+#navbar {
   position: fixed;
+  top: 0;
   left: 0;
-  max-width: 30%;
+  width: 30%;
+}
+#navbar ul {
+  padding: 1rem;
+}
+#navbar li {
+  margin-top: 5rem;
 }
 
-#main-title{
+.nav-link {
+  color: var(--primary-text-color);
+  font-size: 1.6rem;
+  border-bottom: 2px solid #ab2b28;
+  padding-bottom: 0.5rem;
+}
+
+#main-title {
   font-size: 2rem;
 }
 
 /*============== MAIN DOC============================ */
 
-#main-doc{
-  
+#main-doc {
   max-width: 60%;
+  margin: 0 auto;
 }
-p{
-  font-family: 'Lato', sans-serif;
+p {
+  font-family: "Lato", sans-serif;
   font-weight: 300;
   font-size: 1.8rem;
   padding: 1rem;
   margin-top: 5rem;
   margin-bottom: 5rem;
-  
-  
 }
-code{
+code {
   background-color: var(--secondary-background-color);
   padding: 2rem;
   margin-top: 5rem;
   margin-bottom: 5rem;
   font-size: 1.4rem;
-  border-radius: .5rem;
-  display:block;
+  border-radius: 0.5rem;
+  display: block;
 }
-h2{
-font-size: 2.2rem;
-color: #ab2b28;
-text-align: center;
-text-decoration: underline;
-
+h2 {
+  font-size: 2.2rem;
+  color: #ab2b28;
+  text-align: center;
+  text-decoration: underline;
 }
-h3{
-  
+h3 {
   font-size: 1.8rem;
+  font-style: italic;
   padding: 1rem;
   margin: 1rem;
+}
+
+span {
+  color: #ab2b28;
+  font-style: italic;
+  font-size: 1.3rem;
+}
+
+.nav-item {
+  margin-top: 3rem;
+  margin-left: 1rem;
+  color: var(--secondary-text-color);
+  list-style-type: lower-latin;
+  font-size: 1.6rem;
+  padding: 1rem;
+}
+
+@media only screen and (max-width: 500px) {
+
+  #header {
+    width: 100%;
   
+  }
+  #navbar {
+    position: initial;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+
+  #navbar li{
+    margin-top: 1rem;
+  }
+  #main-doc {
+    max-width: 100%;
+    margin-top: 10rem;
+  }
+
+  img {
+    width: 100%;
+  }
 }

@@ -8,10 +8,10 @@
     <title>technical documentation</title>
   </head>
   <body>
-    <div class="header">
+    <div id="header">
       <nav id="navbar">
         <header id="main-title">Official FreeBsd Documentation</header>
-        <ul>
+        <ul class="main-nav">
             <li>
             <a href="#installation_freebsd" class="nav-link">installation freebsd</a></li>
             <li><a href="#getting_started" class="nav-link">getting started</a></li>
@@ -80,16 +80,16 @@
             having to enter the BIOS. Typically, the key is either F10, F11,
             F12, or Escape.
           </p>
-          <ul>
-            <li>
+          <ul class="nav-items">
+            <li class="nav-item">
               The installation media was not inserted early enough in the boot
               process. Leave the media inserted and try restarting the computer.
             </li>
-            <li>
+            <li class="nav-item">
               The BIOS changes were incorrect or not saved. Double-check that
               the right boot device is selected as the first boot device.
             </li>
-            <li>
+            <li class="nav-item">
               This system is too old to support booting from the chosen media.
               In this case, the Plop Boot Manager
               (http://www.plop.at/en/bootmanagers.html) can be used to boot the
@@ -207,14 +207,14 @@
           to enhance security.
         </p>
         <p>After reading this chapter, you will know:</p>
-        <ul>
-          <li>Basic FreeBSD system security concepts.</li>
-          <li>The various crypt mechanisms available in FreeBSD.</li>
-          <li>How to set up one-time password authentication.</li>
-          <li>How to set up Kerberos on FreeBSD.</li>
-          <li>How to configure IPsec and create a VPN.</li>
-          <li>How to configure and use OpenSSH on FreeBSD.</li>
-          <li>How to use file system ACLs.</li>
+        <ul >
+          <li class="nav-item">Basic FreeBSD system security concepts.</li>
+          <li class="nav-item">The various crypt mechanisms available in FreeBSD.</li>
+          <li class="nav-item">How to set up one-time password authentication.</li>
+          <li class="nav-item">How to set up Kerberos on FreeBSD.</li>
+          <li class="nav-item">How to configure IPsec and create a VPN.</li>
+          <li class="nav-item">How to configure and use OpenSSH on FreeBSD.</li>
+          <li class="nav-item">How to use file system ACLs.</li>
         </ul>
         <h3>Introduction</h3>
         <p>
