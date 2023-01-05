@@ -1,15 +1,220 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
     <title>technical documentation</title>
-</head>
-<body>
-    
+  </head>
+  <body>
+    <div class="header">
+      <nav id="navbar"></nav>
+    </div>
+    <main id="main-doc">
+      <section class="main-section" id="installation_freebsd">
+        <header><h2>installation freebsd</h2></header>
 
-    
-</body>
+        <div class="content">
+          <p>
+            The hardware requirements to install FreeBSD vary by architecture.
+            Hardware architectures and devices supported by a FreeBSD release
+            are listed on the FreeBSD Release Information page. The FreeBSD
+            download page also has recommendations for choosing the correct
+            image for different architectures.
+          </p>
+          <p>
+            A FreeBSD installation requires a minimum of 96 MB of RAM and 1.5 GB
+            of free hard drive space. However, such small amounts of memory and
+            disk space are really only suitable for custom applications like
+            embedded appliances. General-purpose desktop systems need more
+            resources. 2-4 GB RAM and at least 8 GB hard drive space is a good
+            starting point.
+          </p>
+
+          <p>
+            <span>amd64</span>
+            This is the most common desktop and laptop processor type, used in
+            most modern systems. Intel® calls it Intel64. Other manufacturers
+            sometimes call it x86-64. Examples of amd64 compatible processors
+            include: AMD Athlon™64, AMD Opteron™, multi-core Intel® Xeon™, and
+            Intel® Core™ 2 and later processors.
+          </p>
+          <p>
+            <span>i386</span>
+            Older desktops and laptops often use this 32-bit, x86 architecture.
+            Almost all i386-compatible processors with a floating point unit are
+            supported. All Intel® processors 486 or higher are supported.
+            However, binaries released by the project are compiled for the 686
+            processor, so a special build will be needed for 486 and 586
+            systems. FreeBSD will take advantage of Physical Address Extensions
+            (PAE) support on CPUs with this feature. A kernel with the PAE
+            feature enabled will detect memory above 4 GB and allow it to be
+            used by the system. However, using PAE places constraints on device
+            drivers and other features of FreeBSD.
+          </p>
+        </div>
+      </section>
+      <section class="main-section" id="getting_started">
+        <header><h2>getting started</h2></header>
+        <div class="content">
+          <h3>Booting on i386™ and amd64</h3>
+          <p>
+            These architectures provide a BIOS menu for selecting the boot
+            device. Depending upon the installation media being used, select the
+            CD/DVD or USB device as the first boot device. Most systems also
+            provide a key for selecting the boot device during startup without
+            having to enter the BIOS. Typically, the key is either F10, F11,
+            F12, or Escape.
+          </p>
+          <ul>
+            <li>
+              The installation media was not inserted early enough in the boot
+              process. Leave the media inserted and try restarting the computer.
+            </li>
+            <li>
+              The BIOS changes were incorrect or not saved. Double-check that
+              the right boot device is selected as the first boot device.
+            </li>
+            <li>
+              This system is too old to support booting from the chosen media.
+              In this case, the Plop Boot Manager
+              (http://www.plop.at/en/bootmanagers.html) can be used to boot the
+              system from the selected media.
+            </li>
+          </ul>
+          <h3>FreeBSD Boot Menu</h3>
+          <img src="./img/bsdinstall-newboot-loader-menu.png" />
+        </div>
+      </section>
+      <section class="main-section" id="basics">
+        <header><h2>basics</h2></header>
+
+        <h3>Virtual Consoles and Terminals</h3>
+        <p>
+          Unless FreeBSD has been configured to automatically start a graphical
+          environment during startup, the system will boot into a command line
+          login prompt, as seen in this example:
+        </p>
+        <code> FreeBSD/amd64 (pc3.example.org) (ttyv0) login: </code>
+
+        <h3>Changing Console Video Modes</h3>
+        <p>
+          The FreeBSD console default video mode may be adjusted to 1024x768,
+          1280x1024, or any other size supported by the graphics chip and
+          monitor. To use a different video mode load the VESA module:
+        </p>
+        <code> # kldload vesa </code>
+        <p>
+          To determine which video modes are supported by the hardware, use
+          vidcontrol(1). To get a list of supported video modes issue the
+          following:
+        </p>
+        <code> # vidcontrol -i mode </code>
+        <p>
+          The output of this command lists the video modes that are supported by
+          the hardware. To select a new video mode, specify the mode using
+          vidcontrol(1) as the root user:
+        </p>
+        <code> # vidcontrol MODE_279 </code>
+      </section>
+      <section class="main-section" id="disks_organisation">
+        <header><h2>disks organisation</h2></header>
+        <p>
+          The smallest unit of organization that FreeBSD uses to find files is
+          the filename. Filenames are case-sensitive, which means that
+          readme.txt and README.TXT are two separate files. FreeBSD does not use
+          the extension of a file to determine whether the file is a program,
+          document, or some other form of data.
+        </p>
+        <h3>Processes and Daemons</h3>
+        <p>
+          FreeBSD is a multi-tasking operating system. Each program running at
+          any one time is called a process. Every running command starts at
+          least one new process and there are a number of system processes that
+          are run by FreeBSD.
+        </p>
+        <p>
+          Each process is uniquely identified by a number called a process ID
+          (PID). Similar to files, each process has one owner and group, and the
+          owner and group permissions are used to determine which files and
+          devices the process can open. Most processes also have a parent
+          process that started them. For example, the shell is a process, and
+          any command started in the shell is a process which has the shell as
+          its parent process. The exception is a special process called init(8)
+          which is always the first process to start at boot time and which
+          always has a PID of 1.
+        </p>
+      </section>
+      <section class="main-section" id="configuring_the_kernel">
+        <header><h2>configuring the kernel</h2></header>
+        <h3>Finding the System Hardware</h3>
+        <p>
+          Before editing the kernel configuration file, it is recommended to
+          perform an inventory of the machine’s hardware. On a dual-boot system,
+          the inventory can be created from the other operating system. For
+          example, Microsoft®'s Device Manager contains information about
+          installed devices.
+        </p>
+        <p>
+          If FreeBSD is the only installed operating system, use dmesg(8) to
+          determine the hardware that was found and listed during the boot
+          probe. Most device drivers on FreeBSD have a manual page which lists
+          the hardware supported by that driver. For example, the following
+          lines indicate that the psm(4) driver found a mouse:
+        </p>
+        <code>
+          psm0: <PS/2 Mouse> irq 12 on atkbdc0 psm0: [GIANT-LOCKED] psm0:
+          [ITHREAD] psm0: model Generic PS/2 mouse, device ID 0
+        </code>
+        <p>
+          Since this hardware exists, this driver should not be removed from a
+          custom kernel configuration file. If the output of dmesg does not
+          display the results of the boot probe output, instead read the
+          contents of /var/run/dmesg.boot. Another tool for finding hardware is
+          pciconf(8), which provides more verbose output. For example:
+        </p>
+        <code>
+          % pciconf -lv ath0@pci0:3:0:0: class=0x020000 card=0x058a1014
+          chip=0x1014168c rev=0x01 hdr=0x00 vendor = 'Atheros Communications
+          Inc.' device = 'AR5212 Atheros AR5212 802.11abg wireless' class =
+          network subclass = ethernet
+        </code>
+      </section>
+      <section class="main-section" id="security">
+        <header><h2>security</h2></header>
+        <p>
+          ecurity, whether physical or virtual, is a topic so broad that an
+          entire industry has evolved around it. Hundreds of standard practices
+          have been authored about how to secure systems and networks, and as a
+          user of FreeBSD, understanding how to protect against attacks and
+          intruders is a must. In this chapter, several fundamentals and
+          techniques will be discussed. The FreeBSD system comes with multiple
+          layers of security, and many more third party utilities may be added
+          to enhance security.
+        </p>
+        <p>After reading this chapter, you will know:</p>
+        <ul>
+            <li>Basic FreeBSD system security concepts.</li>
+            <li>The various crypt mechanisms available in FreeBSD.</li>
+            <li>How to set up one-time password authentication.</li>
+            <li>How to set up Kerberos on FreeBSD.</li>
+            <li>How to configure IPsec and create a VPN.</li>
+            <li>How to configure and use OpenSSH on FreeBSD.</li>
+            <li>How to use file system ACLs.</li>
+        </ul>
+        <h3> Introduction</h3>
+        <p>Security is everyone’s responsibility. A weak entry point in any system could allow intruders to gain access to critical information and cause havoc on an entire network. One of the core principles of information security is the CIA triad, which stands for the Confidentiality, Integrity, and Availability of information systems.
+
+        </p>
+        <p>The CIA triad is a bedrock concept of computer security as customers and users expect their data to be protected. For example, a customer expects that their credit card information is securely stored (confidentiality), that their orders are not changed behind the scenes (integrity), and that they have access to their order information at all times (availability).</p>
+      </section>
+      <section class="main-section" id="configuration_and_tuning">
+        <header><h2>configuration and tuning</h2></header>
+      </section>
+      <section class="main-section" id="printing">
+        <header><h2>printing</h2></header>
+      </section>
+    </main>
+  </body>
 </html>
